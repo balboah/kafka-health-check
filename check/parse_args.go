@@ -24,7 +24,8 @@ func (check *HealthCheck) ParseCommandLineArguments() {
 	flag.UintVar(&check.config.replicationFailureThreshold, "replication-failures-count", 5,
 		"number of replication failures before broker is reported unhealthy")
 	flag.DurationVar(&check.config.CheckInterval, "check-interval", 10*time.Second, "how frequently to perform health checks")
-	flag.BoolVar(&check.config.NoTopicCreation, "no-topic-creation", false, "disable automatic topic creation and deletion")
+	flag.BoolVar(&check.config.NoTopicCreation, "no-topic-creation", false, "disable automatic topic creation")
+	flag.BoolVar(&check.config.NoTopicDeletion, "no-topic-deletion", false, "disable automatic topic deletion")
 	flag.Parse()
 	l := log.New(os.Stderr, "", 0)
 	valid := check.validateConfig(l)

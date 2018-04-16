@@ -27,6 +27,7 @@ type HealthCheckConfig struct {
 	CheckTimeout                time.Duration
 	DataWaitInterval            time.Duration
 	NoTopicCreation             bool
+	NoTopicDeletion             bool
 	retryInterval               time.Duration
 	topicName                   string
 	replicationTopicName        string
@@ -56,12 +57,11 @@ func New(config HealthCheckConfig) *HealthCheck {
 
 // CheckHealth checks broker and cluster health.
 func (check *HealthCheck) CheckHealth(brokerUpdates chan<- Update, clusterUpdates chan<- Update, stop <-chan struct{}) {
-	manageTopic := !check.config.NoTopicCreation
-	err := check.connect(manageTopic, stop)
+	err := check.connect(!check.config.NoTopicCreation, stop)
 	if err != nil {
 		return
 	}
-	defer check.closeConnection(manageTopic)
+	defer check.closeConnection(!check.config.NoTopicDeletion)
 
 	reportUnhealthy := func(err error) {
 		log.Println("metadata could not be retrieved, assuming broker unhealthy:", err)
