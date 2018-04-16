@@ -1,8 +1,8 @@
 build:
-	@go build .
+	@go build ./cmd/...
 
 install:
-	@go install .
+	@go install ./cmd/...
 
 deps:
 	@go get -u -v github.com/kardianos/govendor

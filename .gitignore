@@ -1,6 +1,6 @@
 .idea
 *.iml
-kafka-health-check
+/kafka-health-check
 vendor/*/
 compatibility/vendor/*/
 dist/*
