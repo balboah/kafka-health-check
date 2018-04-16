@@ -48,7 +48,6 @@ func (check *HealthCheck) ServeHealth(brokerUpdates <-chan Update, clusterUpdate
 		})
 	}
 
-	http.DefaultServeMux = http.NewServeMux()
 	statusServer("cluster", "/cluster", red, clusterUpdates)
 	statusServer("broker", "/", unhealthy, brokerUpdates)
 

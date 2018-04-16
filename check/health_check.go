@@ -36,6 +36,7 @@ type HealthCheckConfig struct {
 	brokerPort                  uint
 	zookeeperConnect            string
 	statusServerPort            uint
+	pprofPort                   uint
 }
 
 type Update struct {
